@@ -14,6 +14,10 @@ Shortcommings:
 - No 2 way sync
 - No auto updating. Once a todo is added it wil not be updated. If a todo with a deadline has been added to Things3 for example and the dueDate changes this will not be reflected in Things3. You will need to delete the toDo, clear the trash and sync again.
 
+## Was this helpfull?
+Did you find any of this usefull? Consider buying me a coffe over at [BuyMeACoffee](https://www.buymeacoffee.com/cabenstein)
+
+[<img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="BuyMeACoffee" width="120">](https://www.buymeacoffee.com/cabenstein)
 
 ## Why?
 
