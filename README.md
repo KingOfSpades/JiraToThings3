@@ -31,47 +31,48 @@ You may need to use [rvm](https://rvm.io/rvm/install) to install a newer ruby. I
 
 The first time you run it, it looks like this:
 ```
-	(maybe RVM install or something..)
-	$ bundle install
-	(installs all your gems and goodies..)
-	
-	$ ./jira-to-things3 -C
-	Cleared login from /Users/yourname/.jiratotaskmanagers/jira_to_things.yml
-	JIRA Url (usually https://yourdomain.atlassian.net):
-	    (you type your JIRA URI)
-	JIRA Query (leave blank to use assignee = currentUser() order by priority desc ):
-	    (If you don't know JQL, blank should be fine)
-	Project Name on your Mac's To Do App:
-	    (type the Project name in your Mac's TODO app)
-	User name:
-	    (your JIRA user name.
-			Note: If you use OAuth, you still have a user name mapping,
-			it's in your profile view)
-	Password:
-	Store config? (y/n) y
-	Running JQL:
-	assignee = currentUser() order by priority desc
-	Storing password
-	Storing on /Users/yourname/.jiratotaskmanagers/jira_to_things.yml
-	Got 50 issues that we'll sync with your app
+(maybe RVM install or something..)
+$ bundle install
+(installs all your gems and goodies..)
 
+$ ./jira-to-things3 -C
+Cleared login from /Users/yourname/.jiratotaskmanagers/jira_to_things.yml
+JIRA Url (usually https://yourdomain.atlassian.net):
+    (you type your JIRA URI)
+JIRA Query (leave blank to use assignee = currentUser() order by priority desc ):
+    (If you don't know JQL, blank should be fine)
+Project Name on your Mac's To Do App:
+    (type the Project name in your Mac's TODO app)
+User name:
+    (your JIRA user name.
+		Note: If you use OAuth, you still have a user name mapping,
+		it's in your profile view)
+Password:
+Store config? (y/n) y
+Running JQL:
+assignee = currentUser() order by priority desc
+Storing password
+Storing on /Users/yourname/.jiratotaskmanagers/jira_to_things.yml
+Got 50 issues that we'll sync with your app
+```
 After this, every time you run it it looks like this:
+```
+Running add_to_things3.jxa
+Finished updating 50 tasks in Things.
+$ ./jira-to-things
+Running JQL:
+assignee = currentUser() order by priority desc
+Got 999 issues that we'll sync with your app
 
-	Running add_to_things3.jxa
-	Finished updating 50 tasks in Things.
-	$ ./jira-to-things
-	Running JQL:
-	assignee = currentUser() order by priority desc
-	Got 999 issues that we'll sync with your app
-	
-	Running add_to_things.jxa
-	Finished updating 999 tasks in Things.
+Running add_to_things.jxa
+Finished updating 999 tasks in Things.
 ```
 ## Some Useful Queries
 
 The default query should show everything assigned to you, open or not (we need to know when it's closed to mark it done). But sometimes this could be a lot of stuff and overwhelm you. So here's other possibilities:
-
-	assignee = currentUser() and (sprint in openSprints()) order by priority desc
+```ql
+assignee = currentUser() and (sprint in openSprints()) order by priority desc
+```
 
 This query will show whatever you have assigned to any current sprints. If your workflow has your issues moving naturally to the next sprint after the first one, this should work well.
 
@@ -88,9 +89,9 @@ Once you've determined what was wrong, `--clear-config` option to reconfigure, a
 
 ### JIRA::HTTPError Unauthorized
 
-``
+```
 /Users/David/.rvm/gems/ruby-2.1.5/gems/jira-ruby-0.1.14/lib/jira/request_client.rb:14:in `request': Unauthorized (JIRA::HTTPError)
-``
+```
 
 This is a JIRA authentication error. We use JIRA basic auth. Clear your config and log in correctly.
 
@@ -110,10 +111,11 @@ Congratulations!  You are done.
 
 Say you have two or three filters you'd like to get imported with different settings (maybe sub-projects, different contexts for different JIRAs, etc). For this you can use multiple profiles. Simply pass the `--config-file` option to set up a new yml file. For example:
 
-  $ ./jira-to-things --config-file=myopensourceproject.yml
-  Config: myopensourceproject.yml
-  JIRA Url (usually https://yourdomain.atlassian.net):
-
+```bash
+$ ./jira-to-things --config-file=myopensourceproject.yml
+Config: myopensourceproject.yml
+JIRA Url (usually https://yourdomain.atlassian.net):
+```
 
 ### Security Warning
 
@@ -125,16 +127,18 @@ As long as both your credentials file are secured as (chmod 700) and owned by th
 If this bothers you, you can set the environment variable `JIRA_TO_TASKS_CRYPT_KEY` to have the configuration store use a different key. You will need to run -C to clear the config that uses the old key.
 
 ## License
-    Copyright 2009, David Martinez
-    
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-    
-       http://www.apache.org/licenses/LICENSE-2.0
-    
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+```text
+Copyright 2009, David Martinez
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
