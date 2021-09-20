@@ -82,10 +82,8 @@ function run(input, params) {
 			// Setting the todo for today
 			console.log("Scheduling the task for today")
 			var today = new Date()
-			var TaskProject = TaskApp.projects[things_project.name()]
-			var projectTodos = TaskProject.toDos
 
-			TaskApp.schedule(projectTodos[task_name], {for: today})
+			TaskApp.schedule(toDo, {for: today})
 			}
 
 			// Not found, keep going.
