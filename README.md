@@ -11,8 +11,7 @@ It has the current functions:
 - Supports multible query's (I have it set up to get my Tickets, Releases, Changes etc and drop them in to different lists)
 
 Shortcommings:
-- No 2 way sync
-- No auto updating. Once a todo is added it wil not be updated. If a todo with a deadline has been added to Things3 for example and the dueDate changes this will not be reflected in Things3. You will need to delete the toDo, clear the trash and sync again.
+- No 2 way sync, you must complete the tasks in Jira
 
 ## Is this helpfull?
 Did you find any of this usefull? Consider buying me a coffe over at [BuyMeACoffee](https://www.buymeacoffee.com/cabenstein)
