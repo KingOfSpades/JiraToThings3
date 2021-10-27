@@ -1,4 +1,4 @@
-# Jira To Things3
+# ¿Jira To Things3
 
 This is a project to add tasks from Jira to [Things 3](https://culturedcode.com/things/)
 
@@ -29,24 +29,32 @@ JIRA To Task managers is a set of scripts that you can schedule on your Mac, whi
 
 You may need to use [rvm](https://rvm.io/rvm/install) to install a newer ruby. I use 2.1.5, and it's what's specified in the Gemfile.
 
-The first time you run it, it looks like this:
+My first tip is to create a directory to save your config's to. I chose `~/.jira2things` for this. You can create a config by using the `--config-file=PATH_TO_FILE` command, like:
+
+```bash
+$ /Users/USERNAME/jiratotaskmanagers/jira-to-things3 --config-file=/Users/USERNAME/.jira2things/getTickets.yml
 ```
-	(maybe RVM install or something..)
-	$ bundle install
-	(installs all your gems and goodies..)
-	
-	$ ./jira-to-things3 -C
-	Cleared login from /Users/yourname/.jiratotaskmanagers/jira_to_things.yml
+
+This will look like this:
+```
+    Ignoring debase-0.2.5.beta1 because its extensions are not built. Try: gem pristine debase --version 0.2.5.beta1
+    Ignoring ruby-debug-ide-0.7.2 because its extensions are not built. Try: gem pristine ruby-debug-ide --version 0.7.2
+    Ignoring unf_ext-0.0.7.6 because its extensions are not built. Try: gem pristine unf_ext --version 0.0.7.6
+    Config: /Users/USERNAME/.jira2things/getSubTasks.yml
 	JIRA Url (usually https://yourdomain.atlassian.net):
-	    (you type your JIRA URI)
+    (you type your JIRA URI)
+
 	JIRA Query (leave blank to use assignee = currentUser() order by priority desc ):
-	    (If you don't know JQL, blank should be fine)
-	Project Name on your Mac's To Do App:
+	(If you don't know JQL, blank should be fine)
+	
+    Project Name on your Mac's To Do App:
 	    (type the Project name in your Mac's TODO app)
-	User name:
-	    (your JIRA user name.
-			Note: If you use OAuth, you still have a user name mapping,
-			it's in your profile view)
+	
+    User name:
+    (your JIRA user name.
+    Note: If you use OAuth, you still have a user name mapping,
+    it's in your profile view)
+
 	Password:
 	Store config? (y/n) y
 	Running JQL:
@@ -54,9 +62,12 @@ The first time you run it, it looks like this:
 	Storing password
 	Storing on /Users/yourname/.jiratotaskmanagers/jira_to_things.yml
 	Got 50 issues that we'll sync with your app
-
+```
 After this, every time you run it it looks like this:
-
+```bash
+$ /Users/USERNAME/jiratotaskmanagers/jira-to-things3 --config-file=/Users/USERNAME/.jira2things/getTickets.yml
+```
+```bash
 	Running add_to_things3.jxa
 	Finished updating 50 tasks in Things.
 	$ ./jira-to-things
@@ -69,11 +80,13 @@ After this, every time you run it it looks like this:
 ```
 ## Some Useful Queries
 
-The default query should show everything assigned to you, open or not (we need to know when it's closed to mark it done). But sometimes this could be a lot of stuff and overwhelm you. So here's other possibilities:
+The default query should show everything assigned to you, open or not (we need to know when it's closed to mark it done). But sometimes this could be a lot of stuff and overwhelm you. If you don't want to overwhelm your Jira you should limit the results by `updatedDate`. So here's other possibilities:
 
-	assignee = currentUser() and (sprint in openSprints()) order by priority desc
+```bash
+$  assignee = currentUser() AND updatedDate >= -1w
+```
 
-This query will show whatever you have assigned to any current sprints. If your workflow has your issues moving naturally to the next sprint after the first one, this should work well.
+This query will get all items assigned to you but whill only fetch the items that have been updated in the last week. This keeps the script from crashing the Things3 app with useless data.
 
 ## Troubleshooting
 
@@ -102,7 +115,7 @@ Note that if you have never signed in to JIRA using a password (for example, if 
 You are set up! Now you can put it on a cron line, like this one which sets it to run at office
 hours (use `crontab -e` in Terminal for this):
 ```bash
-*/10 7-18 * * * /PATH_TO_GIT/jira-to-things3 > /yourdir/log/jira_to_omnifocus.log 2>&1
+*/30 7-20 * * * /Users/USERNAMEjiratotaskmanagers/jira-to-things3 --config-file=/Users/USERNAME/.jira2things/getTickets.yml >> /Users/USERNAME/.jira2things/sync.log 2>&1
 ```
 Congratulations!  You are done.
 
