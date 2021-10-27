@@ -60,13 +60,24 @@ function run(input, params) {
 		try {
 			var things_name = things_task.name()
 			if (VERBOSE) { console.log("Found task: and it's " + things_task.status() + ". Setting status to " + task_status) }
-      			things_task.tagNames = tag_names
-			if (completed_stati.indexOf(task_status) >= 0) {
-				if (VERBOSE) { console.log("Marking Done") }
-                things_task.status = 'completed'
-			}
-		} catch (err) {
-			if (VERBOSE) { console.log("No task Found. "+err.message+". Adding it..") }
+					things_task.tagNames = tag_names
+
+					// Update the note with info from Source
+					console.log("Updating note")
+					things_task.notes = task_notes
+		
+					// This will update the task.dueDate if the Source has a deadline
+					if (task_deadline) { console.log("Task had due date: " + task_deadline)
+						things_task.dueDate = task_deadline	
+					}
+
+					// If task is completed, complete the task
+					if (completed_stati.indexOf(task_status) >= 0) {
+						if (VERBOSE) { console.log("Marking Done") }
+										things_task.status = 'completed'
+					}
+			} catch (err) {
+			if (VERBOSE) { console.log("No task Found. " + err.message + ". Adding it..") }
 			var toDo = TaskApp.ToDo({
 				name: task_name,
 				notes: task_notes,
@@ -82,10 +93,8 @@ function run(input, params) {
 			// Setting the todo for today
 			console.log("Scheduling the task for today")
 			var today = new Date()
-			var TaskProject = TaskApp.projects[things_project.name()]
-			var projectTodos = TaskProject.toDos
 
-			TaskApp.schedule(projectTodos[task_name], {for: today})
+			TaskApp.schedule(toDo, {for: today})
 			}
 
 			// Not found, keep going.

@@ -11,19 +11,22 @@ It has the current functions:
 - Supports multible query's (I have it set up to get my Tickets, Releases, Changes etc and drop them in to different lists)
 
 Shortcommings:
-- No 2 way sync
-- No auto updating. Once a todo is added it wil not be updated. If a todo with a deadline has been added to Things3 for example and the dueDate changes this will not be reflected in Things3. You will need to delete the toDo, clear the trash and sync again.
+- No 2 way sync, you must complete the tasks in Jira
 
+## Is this helpfull?
+Did you find any of this usefull? Consider buying me a coffe over at [BuyMeACoffee](https://www.buymeacoffee.com/cabenstein)
+
+[<img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="BuyMeACoffee" width="120">](https://www.buymeacoffee.com/cabenstein)
 
 ## Why?
 
 If you are a fan of David Allen's [GTD](http://gettingthingsdone.com/ "Getting Things Done"), you probably know how important it is to have only "One Inbox". Many people use something that syncs everywhere, such as Omnifocus or Things.
 
-However for collaboration with others, many techies use [Atlassian JIRA] (https://www.atlassian.com/software/jira "Atlassian JIRA Product page"). This ends up in a weird "two inboxes" problems, that forces us to schedule our coding life separate from our non-coding life (both work and play).
+However for collaboration with others, many techies use [Atlassian JIRA](https://www.atlassian.com/software/jira "Atlassian JIRA Product page"). This ends up in a weird "two inboxes" problems, that forces us to schedule our coding life separate from our non-coding life (both work and play).
 
 This I believe leads to tremendous life imbalances. Do I code now, or do I write docs (which are not in JIRA)? On my "What's Next", are my coding tasks included?
 
-JIRA To Task managers is a set of scripts that you can schedule on your Mac, which create one task for each of your assigned JIRA tasks. You can use cron to "set it and forget it", and get back to *One Inbox Bliss*.
+JIRA To Things3 is a simple script that you can schedule on your Mac, which create one task for each of your assigned JIRA tasks. You can use cron to "set it and forget it", and get back to *One Inbox Bliss*.
 
 ## Setting Up
 
@@ -101,9 +104,9 @@ Once you've determined what was wrong, `--clear-config` option to reconfigure, a
 
 ### JIRA::HTTPError Unauthorized
 
-``
+```
 /Users/David/.rvm/gems/ruby-2.1.5/gems/jira-ruby-0.1.14/lib/jira/request_client.rb:14:in `request': Unauthorized (JIRA::HTTPError)
-``
+```
 
 This is a JIRA authentication error. We use JIRA basic auth. Clear your config and log in correctly.
 
@@ -123,10 +126,11 @@ Congratulations!  You are done.
 
 Say you have two or three filters you'd like to get imported with different settings (maybe sub-projects, different contexts for different JIRAs, etc). For this you can use multiple profiles. Simply pass the `--config-file` option to set up a new yml file. For example:
 
-  $ ./jira-to-things --config-file=myopensourceproject.yml
-  Config: myopensourceproject.yml
-  JIRA Url (usually https://yourdomain.atlassian.net):
-
+```bash
+$ ./jira-to-things --config-file=myopensourceproject.yml
+Config: myopensourceproject.yml
+JIRA Url (usually https://yourdomain.atlassian.net):
+```
 
 ### Security Warning
 
@@ -138,16 +142,18 @@ As long as both your credentials file are secured as (chmod 700) and owned by th
 If this bothers you, you can set the environment variable `JIRA_TO_TASKS_CRYPT_KEY` to have the configuration store use a different key. You will need to run -C to clear the config that uses the old key.
 
 ## License
-    Copyright 2009, David Martinez
-    
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-    
-       http://www.apache.org/licenses/LICENSE-2.0
-    
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+```text
+Copyright 2009, David Martinez
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
