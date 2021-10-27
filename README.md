@@ -1,4 +1,4 @@
-# ¿Jira To Things3
+# Jira To Things3
 
 This is a project to add tasks from Jira to [Things 3](https://culturedcode.com/things/)
 
