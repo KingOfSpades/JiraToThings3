@@ -32,10 +32,14 @@ JIRA To Things3 is a simple script that you can schedule on your Mac, which crea
 
 You may need to use [rvm](https://rvm.io/rvm/install) to install a newer ruby. I use 2.1.5, and it's what's specified in the Gemfile.
 
+```bash
+$ git clone git@github.com:KingOfSpades/JiraToThings3.git
+```
+
 My first tip is to create a directory to save your config's to. I chose `~/.jira2things` for this. You can create a config by using the `--config-file=PATH_TO_FILE` command, like:
 
 ```bash
-$ /Users/USERNAME/jiratotaskmanagers/jira-to-things3 --config-file=/Users/USERNAME/.jira2things/getTickets.yml
+$ /Users/USERNAME/JiraToThings3/jira-to-things3 --config-file=/Users/USERNAME/.jira2things/getTickets.yml
 ```
 
 This will look like this:
@@ -63,12 +67,12 @@ This will look like this:
 	Running JQL:
 	assignee = currentUser() order by priority desc
 	Storing password
-	Storing on /Users/yourname/.jiratotaskmanagers/jira_to_things.yml
+	Storing on /Users/USERNAME/.JiraToThings3/jira_to_things.yml
 	Got 50 issues that we'll sync with your app
 ```
 After this, every time you run it it looks like this:
 ```bash
-$ /Users/USERNAME/jiratotaskmanagers/jira-to-things3 --config-file=/Users/USERNAME/.jira2things/getTickets.yml
+$ /Users/USERNAME/JiraToThings3/jira-to-things3 --config-file=/Users/USERNAME/.jira2things/getTickets.yml
 ```
 ```bash
 	Running add_to_things3.jxa
@@ -95,7 +99,7 @@ This query will get all items assigned to you but whill only fetch the items tha
 
 ### Can't get object on (JXA file)
 ``
-jiratotaskmanagers/lib/task_destinations/add_to_omnifocus.jxa:1676:1700: execution error: Error on line 42: Error: Can't get object. (-1728)
+JiraToThings3/lib/task_destinations/add_to_omnifocus.jxa:1676:1700: execution error: Error on line 42: Error: Can't get object. (-1728)
 ``
 
 This is nearly always a problem with your project or context not existing. Use the `--print-config` option to see the configuration and make sure your project names and contexts are correct. Go to the appropriate line (42 in this case) to see which variable is wrong for a hint.
@@ -118,7 +122,7 @@ Note that if you have never signed in to JIRA using a password (for example, if 
 You are set up! Now you can put it on a cron line, like this one which sets it to run at office
 hours (use `crontab -e` in Terminal for this):
 ```bash
-*/30 7-20 * * * /Users/USERNAMEjiratotaskmanagers/jira-to-things3 --config-file=/Users/USERNAME/.jira2things/getTickets.yml >> /Users/USERNAME/.jira2things/sync.log 2>&1
+*/30 7-20 * * * /Users/USERNAME/JiraToThings3/jira-to-things3 --config-file=/Users/USERNAME/.jira2things/getTickets.yml >> /Users/USERNAME/.jira2things/sync.log 2>&1
 ```
 Congratulations!  You are done.
 
