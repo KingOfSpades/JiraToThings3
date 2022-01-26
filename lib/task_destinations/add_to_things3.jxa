@@ -78,7 +78,7 @@ function run(input, params) {
 										things_task.status = 'completed'
 					}
 			} catch (err) {
-				if (completed_stati.indexOf(task_status) > 0 ) { console.log("This task has already been closed in Jira, we will not add it to the Things3") }
+				if (completed_stati.indexOf(task_status) >= 0 ) { console.log("This task has already been closed in Jira, we will not add it to the Things3") }
 				else {
 				if (VERBOSE) { console.log("No task Found in Things3. Error: " + err.message + " . Adding it to Things3. " + completed_stati.indexOf(task_status)) }
 					var toDo = TaskApp.ToDo({
