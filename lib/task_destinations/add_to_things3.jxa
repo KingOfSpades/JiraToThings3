@@ -64,11 +64,11 @@ function run(input, params) {
 					things_task.tagNames = tag_names
 
 					// Update the note with info from Source
-					console.log("Updating note")
+					console.log("Updating note of task " + things_task.name())
 					things_task.notes = task_notes
 		
 					// This will update the task.dueDate if the Source has a deadline
-					if (task_deadline) { console.log("Task had due date: " + task_deadline)
+					if (task_deadline) { console.log("The Task has the due date: " + task_deadline)
 						things_task.dueDate = task_deadline	
 					}
 
@@ -78,9 +78,9 @@ function run(input, params) {
 										things_task.status = 'completed'
 					}
 			} catch (err) {
-				if (completed_stati.indexOf(task_status) > 0 ) { console.log("This task has already been closed in Jira, we will not add it again") }
+				if (completed_stati.indexOf(task_status) > 0 ) { console.log("This task has already been closed in Jira, we will not add it to the Things3") }
 				else {
-				if (VERBOSE) { console.log("No task Found. Error: " + err.message + " . Adding it. " + completed_stati.indexOf(task_status)) }
+				if (VERBOSE) { console.log("No task Found in Things3. Error: " + err.message + " . Adding it to Things3. " + completed_stati.indexOf(task_status)) }
 					var toDo = TaskApp.ToDo({
 						name: task_name,
 						notes: task_notes,
@@ -104,7 +104,7 @@ function run(input, params) {
 			// Not found, keep going.
 	}
 
-	console.log("Finished updating "+report_json['results'].length+" tasks in Things.")
+	console.log("Finished proccessing "+report_json['results'].length+" tasks from Jira to Things.")
 
 }
 
