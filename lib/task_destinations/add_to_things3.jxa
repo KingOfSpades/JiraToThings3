@@ -56,6 +56,7 @@ function run(input, params) {
 			var task_deadline = new Date(row['task_deadline']);
 		}
 		if (VERBOSE) { console.log("Task: " + task_name + " with date " + task_deadline) }
+		// Get a/the task by getting a similair task with the same name
 		var things_task = things_tasks.byName(task_name)
 		try {
 			var things_name = things_task.name()
@@ -77,14 +78,16 @@ function run(input, params) {
 										things_task.status = 'completed'
 					}
 			} catch (err) {
-			if (VERBOSE) { console.log("No task Found. " + err.message + ". Adding it..") }
-			var toDo = TaskApp.ToDo({
-				name: task_name,
-				notes: task_notes,
-				project: things_project,
-				tagNames: tag_names,
-				status: ( completed_stati.indexOf(task_status) > 0 ? 'completed' : 'open' )
-			})
+				if (completed_stati.indexOf(task_status) > 0 ) { console.log("This task has already been closed in Jira, we will not add it again") }
+				else {
+				if (VERBOSE) { console.log("No task Found. Error: " + err.message + " . Adding it. " + completed_stati.indexOf(task_status)) }
+					var toDo = TaskApp.ToDo({
+						name: task_name,
+						notes: task_notes,
+						project: things_project,
+						tagNames: tag_names,
+						status: ( completed_stati.indexOf(task_status) > 0 ? 'completed' : 'open' ) // if status is larger then 0 then its completed
+					})
 			// Check if the Jira ticket has a deadline
 			if (task_deadline) { toDo['dueDate'] = task_deadline }
 			if (VERBOSE) { console.log("New TaskApp ToDo: " + toDo.name + " in project: " + things_project.name() + " with due date: " + task_deadline) }
@@ -95,6 +98,7 @@ function run(input, params) {
 			var today = new Date()
 
 			TaskApp.schedule(toDo, {for: today})
+			}
 			}
 
 			// Not found, keep going.
