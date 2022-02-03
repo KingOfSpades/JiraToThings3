@@ -126,6 +126,10 @@ hours (use `crontab -e` in Terminal for this):
 ```
 Congratulations!  You are done.
 
+### add_to_things3.jxa: execution error: Error: Error: Application isn't running. (-600)
+
+This is a weird one. This has to do with the Automation permissions that macOS handles. There is a way to reset them for `cron` (`sudo tccutil restet Cron com.culturedcode.ThingsMac`) but this had no effect on my setup. In the end I had to do a [NVRAM reset](https://support.apple.com/en-us/HT204063) to get my cronjobs working again.
+
 ## Multiple Profiles
 
 Say you have two or three filters you'd like to get imported with different settings (maybe sub-projects, different contexts for different JIRAs, etc). For this you can use multiple profiles. Simply pass the `--config-file` option to set up a new yml file. For example:
