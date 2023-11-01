@@ -16,7 +16,7 @@ class ConfigStore
 
   # JIRA Config Stuff
   attr_reader :jira_url, :jira_query
-  attr_reader :username, :password
+  attr_reader :token
 
   attr_reader :task_app_params
 
@@ -33,7 +33,7 @@ class ConfigStore
     @task_app_params = {}
     @crypt = Crypt::Blowfish.new(CRYPT_KEY)
     if (File.exists?(@config_store))
-      # Get the password from the credentials file
+      # Get the token from the credentials file
       read_config
     else
       read_from_stdin
@@ -52,14 +52,10 @@ class ConfigStore
       @jira_query = DEFAULT_JIRA_QUERY
     end
 
-    print "JIRA User name: "
-    $stdout.flush
-    @username=STDIN.gets.chomp!
-
-    print "JIRA Password: "
+    print "JIRA Token: "
     $stdout.flush
     system "stty -echo"
-    @password=STDIN.gets.chomp!
+    @token=STDIN.gets.chomp!
     system "stty echo"
 
     puts "\n\n** Task App Config"
@@ -88,7 +84,7 @@ class ConfigStore
     open("#{@config_store}", "w") do |f|
       # Block cypher with 8 char blocksize
       f.puts @crypt.encrypt_string(YAML::dump({
-        :username => @username, :password =>@password,
+        :token =>@token,
         :jira_url => @jira_url, :task_app_params=> @task_app_params,
         :jira_query => @jira_query
       }))
@@ -101,8 +97,7 @@ class ConfigStore
       crypted = f.read.chomp!
       @payload = YAML::load(@crypt.decrypt_string(crypted))
     end
-    @username = @payload[:username].chomp
-    @password = @payload[:password].chomp
+    @token = @payload[:token].chomp
     @jira_url = @payload[:jira_url].chomp
     @jira_query = @payload[:jira_query].chomp
     @task_app_params = @payload[:task_app_params]

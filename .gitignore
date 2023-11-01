@@ -2,3 +2,5 @@
 Gemfile.lock
 *.yml
 .vscode/launch.json
+vendor/
+.bundle/config

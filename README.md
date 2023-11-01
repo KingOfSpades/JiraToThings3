@@ -5,12 +5,14 @@ This is a project to add tasks from Jira to [Things 3](https://culturedcode.com/
 Requires Yosemite because it uses JXA for ease of scripting. It is a fork of the original project [jiratotaskmanagers](https://github.com/hackerdude/) by [HackerDude](https://github.com/hackerdude)
 
 It has the current functions:
+
 - Sync open Jira issues to a Things3 Project by choise
 - Reads DueDate of Jira issue and applys this to the toDo
 - Add's all new toDo's to the Today list (schedules todo's for today)
 - Supports multible query's (I have it set up to get my Tickets, Releases, Changes etc and drop them in to different lists)
 
 Shortcommings:
+
 - No 2 way sync, you must complete the tasks in Jira
 
 ## Is this helpfull?
@@ -26,7 +28,7 @@ However for collaboration with others, many techies use [Atlassian JIRA](https:/
 
 This I believe leads to tremendous life imbalances. Do I code now, or do I write docs (which are not in JIRA)? On my "What's Next", are my coding tasks included?
 
-JIRA To Things3 is a simple script that you can schedule on your Mac, which create one task for each of your assigned JIRA tasks. You can use cron to "set it and forget it", and get back to *One Inbox Bliss*.
+JIRA To Things3 is a simple script that you can schedule on your Mac, which create one task for each of your assigned JIRA tasks. You can use cron to "set it and forget it", and get back to _One Inbox Bliss_.
 
 ## Setting Up
 
@@ -70,10 +72,13 @@ This will look like this:
 	Storing on /Users/USERNAME/.JiraToThings3/jira_to_things.yml
 	Got 50 issues that we'll sync with your app
 ```
+
 After this, every time you run it it looks like this:
+
 ```bash
 $ /Users/USERNAME/JiraToThings3/jira-to-things3 --config-file=/Users/USERNAME/.jira2things/getTickets.yml
 ```
+
 ```bash
 	Running add_to_things3.jxa
 	Finished updating 50 tasks in Things.
@@ -85,6 +90,7 @@ $ /Users/USERNAME/JiraToThings3/jira-to-things3 --config-file=/Users/USERNAME/.j
 	Running add_to_things.jxa
 	Finished updating 999 tasks in Things.
 ```
+
 ## Some Useful Queries
 
 The default query should show everything assigned to you, open or not (we need to know when it's closed to mark it done). But sometimes this could be a lot of stuff and overwhelm you. If you don't want to overwhelm your Jira you should limit the results by `updatedDate`. So here's other possibilities:
@@ -98,9 +104,10 @@ This query will get all items assigned to you but whill only fetch the items tha
 ## Troubleshooting
 
 ### Can't get object on (JXA file)
-``
+
+```
 JiraToThings3/lib/task_destinations/add_to_omnifocus.jxa:1676:1700: execution error: Error on line 42: Error: Can't get object. (-1728)
-``
+```
 
 This is nearly always a problem with your project or context not existing. Use the `--print-config` option to see the configuration and make sure your project names and contexts are correct. Go to the appropriate line (42 in this case) to see which variable is wrong for a hint.
 
@@ -121,9 +128,11 @@ Note that if you have never signed in to JIRA using a password (for example, if 
 
 You are set up! Now you can put it on a cron line, like this one which sets it to run at office
 hours (use `crontab -e` in Terminal for this):
+
 ```bash
 */30 7-20 * * * /Users/USERNAME/JiraToThings3/jira-to-things3 --config-file=/Users/USERNAME/.jira2things/getTickets.yml >> /Users/USERNAME/.jira2things/sync.log 2>&1
 ```
+
 Congratulations!  You are done.
 
 ### add_to_things3.jxa: execution error: Error: Error: Application isn't running. (-600)

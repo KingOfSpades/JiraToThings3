@@ -14,7 +14,7 @@
 
 # Change the filter id here. TODO Use by name and save it on the config.
 JIRA_TASK_RE=/(.*-[0-9]*):(.*)/
-JIRA_STATI_FOR_COMPLETED=["Resolved", "Rejected", "Closed", "Done", "Released"] # The status a completed JIRA project should have on your machine.
+JIRA_STATI_FOR_COMPLETED=["Resolved", "Rejected", "Closed", "Done", "Released", "Resolved"] # The status a completed JIRA project should have on your machine.
 
 # Ask for 100 items at a time (JIRA default is 50). It's not that much RAM.
 JIRA_MAX_RESULTS = 100
@@ -43,8 +43,7 @@ class JiraToJxaApp
   ** Current Config:
 
   JIRA:
-   Username: #{config_store.username}
-   Password: #{'*' * config_store.password.length }
+   Token: #{'*' * config_store.token.length }
    JIRA Uri: #{config_store.jira_url}
 
   Task App:
@@ -101,10 +100,9 @@ class JiraToJxaApp
     config_store = ConfigStore.new(CONFIG_STORE_OPTIONS)
     # Connect to JIRA
     jira_client = JIRA::Client.new({
-                  :username => config_store.username,
-                  :password => config_store.password,
                   :site     => config_store.jira_url,
                   :context_path => '',
+                  :default_headers    => { 'Authorization' =>  "Bearer #{config_store.token}" },
                   :auth_type => :basic
     })
 
@@ -122,7 +120,7 @@ class JiraToJxaApp
     end
 
     # puts "Got #{report_results.length} items"
-    # Only store the password when login went ok
+    # Only store the token when login went ok
     config_store.store_config unless ! config_store.store
 
     if report_results.nil? || report_results.length == 0
@@ -146,7 +144,7 @@ class JiraToJxaApp
 
       if row.duedate.nil? then
           task_deadline = "nodate"
-        else 
+        else
           task_deadline = row.duedate
         end
 
