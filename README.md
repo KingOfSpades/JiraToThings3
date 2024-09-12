@@ -1,5 +1,8 @@
 # Jira To Things3
 
+> [!Info]
+> If you use a API token checkout the branch [token-auth-version](https://github.com/KingOfSpades/JiraToThings3/tree/change/token-auth-version)
+
 This is a project to add tasks from Jira to [Things 3](https://culturedcode.com/things/)
 
 Requires Yosemite because it uses JXA for ease of scripting. It is a fork of the original project [jiratotaskmanagers](https://github.com/hackerdude/) by [HackerDude](https://github.com/hackerdude)
