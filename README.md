@@ -1,7 +1,7 @@
 # Jira To Things3
 
 > [!TIP]
-> If you use a API token checkout the branch [token-auth-version](https://github.com/KingOfSpades/JiraToThings3/tree/change/token-auth-version)
+> If you use a API token to authenticate tot Jira, checkout this branch [token-auth-version](https://github.com/KingOfSpades/JiraToThings3/tree/change/token-auth-version)
 
 This is a project to add tasks from Jira to [Things 3](https://culturedcode.com/things/)
 
