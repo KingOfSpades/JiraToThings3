@@ -1,3 +1,6 @@
+> [!CAUTION]
+> This app is deprecated and replaced by https://github.com/laufwerkcode/jira2things
+
 # Jira To Things3
 
 > [!TIP]
